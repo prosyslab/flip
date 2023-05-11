@@ -1,0 +1,28 @@
+opam-version: "2.0"
+synopsis: "C Intermediate Language"
+authors: ["gabriel@kerneis.info"]
+maintainer: "gabriel@kerneis.info"
+homepage: "https://cil-project.github.io/cil/"
+bug-reports: "https://github.com/cil-project/cil/issues/"
+dev-repo: "git+https://github.com/cil-project/cil/"
+build: [
+  ["env" "FORCE_PERL_PREFIX=1" "./configure" "--prefix" prefix]
+  [make]
+  [make "doc"] {with-doc}
+]
+run-test: [
+  ["env" "VERBOSE=1" make "test"]
+]
+install: [
+  make "install"
+]
+remove: [
+  ["env" "FORCE_PERL_PREFIX=1" "./configure" "--prefix" prefix]
+  [make "uninstall"]
+]
+depends: [
+  "num"
+  "ocamlfind"
+  "ocamlbuild" {build}
+  "hevea" {with-doc & with-test}
+]

@@ -1,0 +1,169 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+<link rel="stylesheet" href="style.css" type="text/css">
+<meta content="text/html; charset=iso-8859-1" http-equiv="Content-Type">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="Start" href="index.html">
+<link rel="previous" href="Errormsg.html">
+<link rel="next" href="Formatcil.html">
+<link rel="Up" href="index.html">
+<link title="Index of types" rel=Appendix href="index_types.html">
+<link title="Index of exceptions" rel=Appendix href="index_exceptions.html">
+<link title="Index of values" rel=Appendix href="index_values.html">
+<link title="Index of class methods" rel=Appendix href="index_methods.html">
+<link title="Index of classes" rel=Appendix href="index_classes.html">
+<link title="Index of class types" rel=Appendix href="index_class_types.html">
+<link title="Index of modules" rel=Appendix href="index_modules.html">
+<link title="Index of module types" rel=Appendix href="index_module_types.html">
+<link title="Alpha" rel="Chapter" href="Alpha.html">
+<link title="Cfg" rel="Chapter" href="Cfg.html">
+<link title="Cil" rel="Chapter" href="Cil.html">
+<link title="Cillower" rel="Chapter" href="Cillower.html">
+<link title="Clist" rel="Chapter" href="Clist.html">
+<link title="Dataflow" rel="Chapter" href="Dataflow.html">
+<link title="Dominators" rel="Chapter" href="Dominators.html">
+<link title="Errormsg" rel="Chapter" href="Errormsg.html">
+<link title="Feature" rel="Chapter" href="Feature.html">
+<link title="Formatcil" rel="Chapter" href="Formatcil.html">
+<link title="Pretty" rel="Chapter" href="Pretty.html">
+<link title="Stats" rel="Chapter" href="Stats.html"><title>CIL API Documentation  : Feature</title>
+</head>
+<body>
+<div class="navbar"><a class="pre" href="Errormsg.html" title="Errormsg">Previous</a>
+&nbsp;<a class="up" href="index.html" title="Index">Up</a>
+&nbsp;<a class="post" href="Formatcil.html" title="Formatcil">Next</a>
+</div>
+<h1>Module <a href="type_Feature.html">Feature</a></h1>
+
+<pre><span id="MODULEFeature"><span class="keyword">module</span> Feature</span>: <code class="code">sig</code> <a href="Feature.html">..</a> <code class="code">end</code></pre><div class="info module top">
+<div class="info-desc">
+<p>Extending CIL with external features</p>
+</div>
+</div>
+<hr width="100%">
+
+<pre><code><span id="TYPEt"><span class="keyword">type</span> <code class="type"></code>t</span> = {</code></pre><table class="typetable">
+<tr>
+<td align="left" valign="top" >
+<code>&nbsp;&nbsp;</code></td>
+<td align="left" valign="top" >
+<code><span class="keyword">mutable&nbsp;</span><span id="TYPEELTt.fd_enabled">fd_enabled</span>&nbsp;: <code class="type">bool</code>;</code></td>
+<td class="typefieldcomment" align="left" valign="top" ><code>(*</code></td><td class="typefieldcomment" align="left" valign="top" ><div class="info ">
+<div class="info-desc">
+<p>The enable flag. Set to default value</p>
+</div>
+</div>
+</td><td class="typefieldcomment" align="left" valign="bottom" ><code>*)</code></td>
+</tr>
+<tr>
+<td align="left" valign="top" >
+<code>&nbsp;&nbsp;</code></td>
+<td align="left" valign="top" >
+<code><span id="TYPEELTt.fd_name">fd_name</span>&nbsp;: <code class="type">string</code>;</code></td>
+<td class="typefieldcomment" align="left" valign="top" ><code>(*</code></td><td class="typefieldcomment" align="left" valign="top" ><div class="info ">
+<div class="info-desc">
+<p>This is used to construct an option "--doxxx" and "--dontxxx" that 
+ enable and disable the feature</p>
+</div>
+</div>
+</td><td class="typefieldcomment" align="left" valign="bottom" ><code>*)</code></td>
+</tr>
+<tr>
+<td align="left" valign="top" >
+<code>&nbsp;&nbsp;</code></td>
+<td align="left" valign="top" >
+<code><span id="TYPEELTt.fd_description">fd_description</span>&nbsp;: <code class="type">string</code>;</code></td>
+<td class="typefieldcomment" align="left" valign="top" ><code>(*</code></td><td class="typefieldcomment" align="left" valign="top" ><div class="info ">
+<div class="info-desc">
+<p>A longer name that can be used to document the new options</p>
+</div>
+</div>
+</td><td class="typefieldcomment" align="left" valign="bottom" ><code>*)</code></td>
+</tr>
+<tr>
+<td align="left" valign="top" >
+<code>&nbsp;&nbsp;</code></td>
+<td align="left" valign="top" >
+<code><span id="TYPEELTt.fd_extraopt">fd_extraopt</span>&nbsp;: <code class="type">(string * Arg.spec * string) list</code>;</code></td>
+<td class="typefieldcomment" align="left" valign="top" ><code>(*</code></td><td class="typefieldcomment" align="left" valign="top" ><div class="info ">
+<div class="info-desc">
+<p>Additional command line options.  The description strings should
+        usually start with a space for Arg.align to print the --help nicely.</p>
+</div>
+</div>
+</td><td class="typefieldcomment" align="left" valign="bottom" ><code>*)</code></td>
+</tr>
+<tr>
+<td align="left" valign="top" >
+<code>&nbsp;&nbsp;</code></td>
+<td align="left" valign="top" >
+<code><span id="TYPEELTt.fd_doit">fd_doit</span>&nbsp;: <code class="type"><a href="Cil.html#TYPEfile">Cil.file</a> -> unit</code>;</code></td>
+<td class="typefieldcomment" align="left" valign="top" ><code>(*</code></td><td class="typefieldcomment" align="left" valign="top" ><div class="info ">
+<div class="info-desc">
+<p>This performs the transformation</p>
+</div>
+</div>
+</td><td class="typefieldcomment" align="left" valign="bottom" ><code>*)</code></td>
+</tr>
+<tr>
+<td align="left" valign="top" >
+<code>&nbsp;&nbsp;</code></td>
+<td align="left" valign="top" >
+<code><span id="TYPEELTt.fd_post_check">fd_post_check</span>&nbsp;: <code class="type">bool</code>;</code></td>
+<td class="typefieldcomment" align="left" valign="top" ><code>(*</code></td><td class="typefieldcomment" align="left" valign="top" ><div class="info ">
+<div class="info-desc">
+<p>Whether to perform a CIL consistency checking after this stage, if 
+ checking is enabled (--check is passed to cilly). Set this to true if 
+ your feature makes any changes for the program.</p>
+</div>
+</div>
+</td><td class="typefieldcomment" align="left" valign="bottom" ><code>*)</code></td>
+</tr></table>
+}
+
+<div class="info ">
+<div class="info-desc">
+<p>Description of a CIL feature.</p>
+</div>
+</div>
+
+
+<pre><span id="VALregister"><span class="keyword">val</span> register</span> : <code class="type"><a href="Feature.html#TYPEt">t</a> -> unit</code></pre><div class="info ">
+<div class="info-desc">
+<p>Register a feature to be used by CIL. Feature name must be unique.</p>
+</div>
+</div>
+
+<pre><span id="VALlist_registered"><span class="keyword">val</span> list_registered</span> : <code class="type">unit -> <a href="Feature.html#TYPEt">t</a> list</code></pre><div class="info ">
+<div class="info-desc">
+<p>List registered features.</p>
+</div>
+</div>
+
+<pre><span id="VALregistered"><span class="keyword">val</span> registered</span> : <code class="type">string -> bool</code></pre><div class="info ">
+<div class="info-desc">
+<p>Check if a given feature is registered.</p>
+</div>
+</div>
+
+<pre><span id="VALfind"><span class="keyword">val</span> find</span> : <code class="type">string -> <a href="Feature.html#TYPEt">t</a></code></pre><div class="info ">
+<div class="info-desc">
+<p>Find a feature by name. Raise Not_found if the feature is not registered.</p>
+</div>
+</div>
+
+<pre><span id="VALenable"><span class="keyword">val</span> enable</span> : <code class="type">string -> unit</code></pre><div class="info ">
+<div class="info-desc">
+<p>Enable a given feature, by name. Raise <a href="Errormsg.html#EXCEPTIONError"><code class="code">Errormsg.Error</code></a> if the feature is not
+  registered.</p>
+</div>
+</div>
+
+<pre><span id="VALenabled"><span class="keyword">val</span> enabled</span> : <code class="type">string -> bool</code></pre><div class="info ">
+<div class="info-desc">
+<p>Check if a given feature is enabled. Return false if the feature is not
+ registered.</p>
+</div>
+</div>
+</body></html>

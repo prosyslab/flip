@@ -27,7 +27,7 @@ fi
 eval $(SHELL=bash opam config env --switch=$OPAM_SWITCH)
 
 # build flip
-opam pin add cil https://github.com/prosyslab/cil.git -n
+opam pin add cil cil -n
 opam install -j $NCPU dune batteries cil ppx_compare ocamlformat ocamlgraph merlin yojson xmlm
 
 make
