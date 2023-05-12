@@ -11,14 +11,14 @@
 ./script/run-call-printer.py || true
 ./script/run-error-branch-multi.py || true
 
-# extract passing coverage
-./script/run-signal-extractor.py || true
-./script/run-signal-filter.py || true
-./script/run-assume-injector.py || true
-./script/run-assume-multi-add.py || true
+# # extract passing coverage
+# ./script/run-signal-extractor.py || true
+# ./script/run-signal-filter.py || true
+# ./script/run-assume-injector.py || true
+# ./script/run-assume-multi-add.py || true
 
 # merge both coverage
-./script/run-merge-coverage.py || true
+./script/run-merge-coverage-fail.py || true
 
 # process result
 ./script/process-result.py --name result_ochiai_final.txt || true

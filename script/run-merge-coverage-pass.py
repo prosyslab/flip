@@ -274,9 +274,7 @@ def main():
             result_file = os.path.join(COVERAGE_DIR, project, case, 'value', 'assume', 'result_ochiai_assume_multi.txt')
             if not os.path.exists(result_file):
                 result_file = origin_path
-            default_file = os.path.join(COVERAGE_DIR, project, case, 'branch', 'result_ochiai_error_multi.txt')
-            if not os.path.exists(default_file):
-                default_file = origin_path
+            default_file = origin_path
             result = get_result(project, case, result_file, default_file)
             print_result([result])
 

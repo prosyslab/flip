@@ -86,7 +86,6 @@ def read_call_sequence(cov_file):
 def main():
     for project in benchmark:
         for case in benchmark[project]:
-            
             if not os.path.exists(COVERAGE_DIR / project / case / 'branch'):
                 continue 
             neg_num, pos_num = get_test_num(project, case)
@@ -130,15 +129,41 @@ def main():
                 check_call = True
                 for i in range(neg_num):
                     test_num = i+1
-                    if not os.path.exists(COVERAGE_DIR / project / case / 'value' / 'call' / f"n{test_num}.txt") or not os.path.exists(COVERAGE_DIR / project / case / 'branch' / inject_file / inject_line / 'call' / f"n{test_num}.txt"):
+                    origin_call_sequence_path = str(COVERAGE_DIR / project / case / 'value' / 'call' / f"n{test_num}.txt")
+                    call_sequence_path = str(COVERAGE_DIR / project / case / 'branch' / inject_file / inject_line / 'call' / f"n{test_num}.txt")
+                    if not os.path.exists(origin_call_sequence_path) or not os.path.exists(call_sequence_path):
                         check_call = False
                         break
-                    if os.path.getsize(COVERAGE_DIR / project / case / 'value' / 'call' / f"n{test_num}.txt") != os.path.getsize(COVERAGE_DIR / project / case / 'branch' / inject_file / inject_line / 'call' / f"n{test_num}.txt"):
+                    diff_result = subprocess.Popen(["diff", f"{origin_call_sequence_path}", f"{call_sequence_path}"], stdout=subprocess.PIPE)
+                    result = diff_result.stdout.read().decode('UTF-8', 'ignore').strip().split('\n')
+                    result = list(filter(lambda x: not x.startswith('<') and not x.startswith('>') and not x.startswith('-'), result))
+                    length_result = subprocess.Popen(["wc", "-l", f"{origin_call_sequence_path}"], stdout=subprocess.PIPE)
+                    length = int(length_result.stdout.read().decode('utf-8').split()[0])
+                    sum = 0
+                    # print(result)
+                    if len(result) == 0 or (len(result) == 1 and result[0]==''):
+                        continue
+                    for line in result:
+                        diff_type = (set(line) & set(['a', 'd', 'c'])).pop()
+                        diffs = line.split(diff_type)
+                        old_lines = diffs[0].split(',')
+                        new_lines = diffs[1].split(',')
+                        old_from = int(old_lines[0])
+                        old_to = int(old_lines[1]) if len(old_lines) > 1 else int(old_lines[0])
+                        new_from = int(new_lines[0])
+                        new_to = int(new_lines[1]) if len(new_lines) > 1 else int(new_lines[0])
+                        old_length = old_to - old_from + 1
+                        new_length = new_to - new_from + 1
+                        if diff_type == 'c':
+                            sum += max(old_length, new_length)
+                        elif diff_type == 'a':
+                            sum += new_length
+                        elif diff_type == 'd':
+                            sum += old_length
+                    if sum / length > 0.1:
                         check_call = False
                         break
-                    if not filecmp.cmp(COVERAGE_DIR / project / case / 'value' / 'call' / f"n{test_num}.txt", COVERAGE_DIR / project / case / 'branch' / inject_file / inject_line / 'call' / f"n{test_num}.txt"):
-                        check_call = False
-                        break
+                        
                 if check_call==False:
                     continue
                 

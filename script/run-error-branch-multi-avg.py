@@ -155,14 +155,14 @@ def main():
                             combi_result[(file, line)] = (float(neg), float(pos))
                             ground_set.add((os.path.basename(file), line))
                         else:
-                            combi_result[(file, line)] = (min(combi_result[(file, line)][0], float(neg)), min(combi_result[(file, line)][1], float(pos)))
+                            combi_result[(file, line)] = (combi_result[(file, line)][0]+ float(neg), combi_result[(file, line)][1]+float(pos))
                 for ground in ground_set:
                     if ground not in tmp_ground_set:
                         combi_result[ground] = (0.0, 0.0)
             print(f"{project}-{case}: Number of used branch: ", num)
             with open(COVERAGE_DIR / project / case / 'branch' / 'result_ochiai_error_multi.txt', 'w') as result_file:
                 for ground in combi_result:
-                    result_file.write(f"{ground[0]}:{ground[1]}\t{combi_result[ground][0]} {combi_result[ground][1]} 0.0 0\n")
+                    result_file.write(f"{ground[0]}:{ground[1]}\t{combi_result[ground][0] / num} {combi_result[ground][1] / num} 0.0 0\n")
 
 
 if __name__ == '__main__':

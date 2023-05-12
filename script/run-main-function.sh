@@ -9,6 +9,7 @@
 ./script/run-error-branch-injector.py || true
 ./script/run-error-call-printer.py || true
 ./script/run-call-printer.py || true
+./script/run-error-branch-multi.py || true
 
 # extract passing coverage
 ./script/run-signal-extractor.py || true

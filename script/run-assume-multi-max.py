@@ -116,13 +116,13 @@ def main():
                             file, line, neg, pos, _, _ = parse_line
                             if (file, line) not in combi_result:
                                 combi_result[(file, line)] = (0, 0)
-                            combi_result[(file, line)] = (0, combi_result[(file, line)][1] + float(pos))
+                            combi_result[(file, line)] = (0, max(combi_result[(file, line)][1], float(pos)))
                 
                 os.makedirs(COVERAGE_DIR / project / case / 'value' / 'assume', exist_ok=True)
                 
                 with open(COVERAGE_DIR / project / case / 'value' / 'assume' / 'result_ochiai_assume_multi.txt', 'w') as result_file:
                     for ground in combi_result:
-                        combi_result[ground] = (0, combi_result[ground][1] / len(signal_90_list))
+                        combi_result[ground] = (0, combi_result[ground][1])
                         result_file.write(f"{ground[0]}:{ground[1]}\t{combi_result[ground][0]} {combi_result[ground][1]} 0.0 0\n")
 
 

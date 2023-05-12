@@ -71,7 +71,7 @@ def main():
             signal_neg_list = read_signal_file(signal_neg_file)
             os.makedirs(COVERAGE_DIR / project / case / 'value' / 'assume', exist_ok=True)
 
-            rate_90_filter = []
+            rate_100_filter = []
             for (i, sig_file, sig_line) in signal_list:
                 sig_file = os.path.basename(sig_file)
                 if os.path.exists(COVERAGE_DIR / project / case / 'value' / sig_file / sig_line / 'result_ochiai_assume.txt'):
@@ -84,10 +84,10 @@ def main():
                         assume_keep_rate_tmp = (pos_num - (float(parse_line[3]) - float(parse_line[5])))/pos_num*100
                         if assume_keep_rate_tmp < assume_keep_rate:
                             assume_keep_rate = assume_keep_rate_tmp
-                    if assume_keep_rate >= 90:
-                        rate_90_filter.append((sig_file, sig_line))
+                    if assume_keep_rate >= 100:
+                        rate_100_filter.append((sig_file, sig_line))
             
-            rate_90_filter_neg = []
+            rate_100_filter_neg = []
             for (i, sig_file, sig_line) in signal_neg_list:
                 sig_file = os.path.basename(sig_file)
                 if os.path.exists(COVERAGE_DIR / project / case / 'value' / sig_file / sig_line / 'result_ochiai_assume.txt'):
@@ -100,14 +100,14 @@ def main():
                         assume_keep_rate_tmp = (pos_num - (float(parse_line[3]) - float(parse_line[5])))/pos_num*100
                         if assume_keep_rate_tmp < assume_keep_rate:
                             assume_keep_rate = assume_keep_rate_tmp
-                    if assume_keep_rate >= 90:
-                        rate_90_filter_neg.append((sig_file, sig_line))
+                    if assume_keep_rate >= 100:
+                        rate_100_filter_neg.append((sig_file, sig_line))
 
-            signal_90_list = (rate_90_filter + rate_90_filter_neg)
+            signal_100_list = (rate_100_filter + rate_100_filter_neg)
             
-            if len(signal_90_list) > 0:
+            if len(signal_100_list) > 0:
                 combi_result = dict()
-                for (sig_file, sig_line) in signal_90_list:
+                for (sig_file, sig_line) in signal_100_list:
                     with open(COVERAGE_DIR / project / case / 'value' / sig_file / sig_line / 'result_ochiai_assume.txt') as assume_result_file:
                         for line in assume_result_file:
                             parse_line = parse("{}:{}\t{} {} {} {}", line.strip())
@@ -122,7 +122,7 @@ def main():
                 
                 with open(COVERAGE_DIR / project / case / 'value' / 'assume' / 'result_ochiai_assume_multi.txt', 'w') as result_file:
                     for ground in combi_result:
-                        combi_result[ground] = (0, combi_result[ground][1] / len(signal_90_list))
+                        combi_result[ground] = (0, combi_result[ground][1] / len(signal_100_list))
                         result_file.write(f"{ground[0]}:{ground[1]}\t{combi_result[ground][0]} {combi_result[ground][1]} 0.0 0\n")
 
 

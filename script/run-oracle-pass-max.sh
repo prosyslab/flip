@@ -15,7 +15,7 @@
 ./script/run-signal-extractor.py || true
 ./script/run-signal-filter.py || true
 ./script/run-assume-injector.py || true
-./script/run-assume-multi-add.py || true
+./script/run-assume-multi-max.py || true
 
 # merge both coverage
 ./script/run-merge-coverage.py || true
