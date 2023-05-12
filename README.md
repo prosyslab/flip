@@ -1,6 +1,6 @@
 # Flip
 
-Flip is a framework for fault localization using counterfactual execution
+Flip is a framework for fault localization with external oracle using counterfactual execution.
 
 ## Requirements
 
@@ -8,6 +8,28 @@ We assume that Flip is executed with the following environment settings.
 - Ubuntu 20.04
 - Opam 2.1.0 +
 - Docker
+
+## Directory structure
+
+```
+├─ README.md                        <- The top-level README (this file)
+|
+├─ Makefile                         <- Makefile for compiling Flip
+|
+├─ build.sh                         <- Installation script for Flip
+|
+├─ benchmark                        <- Benchmark information
+|   ├─ <project>
+|   |   └─ <project>.bugzoo.yml     <- The information data file for each benchmark project
+|   └─ ...
+├─ cil                              <- Cil framework for instrumentaion of C programs
+|
+├─ flip                             <- Our implementation of Flip
+|
+├─ flip_result                      <- Our experimental data
+|
+└─ script                           <- Scripts for reproducing our experiments 
+```
 
 ## Installation
 
@@ -17,7 +39,7 @@ $ ./build.sh
 ```
 The above command will install all the dependencies and Flip.
 
-## Running benchmark docker
+<!-- ## Running benchmark docker
 
 ```
 $ ./script/run-docker.py <project>-<case> [--rm]
@@ -25,9 +47,115 @@ $ ./script/run-docker.py <project>-<case> [--rm]
 
 You can run a docker container of benchmark using `run-docker.py`.
 
-If you want, you can use `--rm` option for removing the container when it is exited.
+If you need, you can use `--rm` option to remove the container when it is exited. -->
 
-## Collecting branch information
+
+## Reproducing the main experiments (Table 4)
+
+```sh
+# If you want to reproduce whole experimental data,
+# Statement-level FL results
+$ ./script/run-main-stmt.sh
+# Function-level FL results
+$ ./script/run-main-function.sh
+
+# If you want to reproduce results with given data (./flip_result)
+# Statement-level FL results
+$ ./script/process-result-main-stmt.py
+# Function-level FL results
+$ ./script/process-result-main-function.py
+```
+
+To reproduce our main experimental data, you can execute the above commands.
+
+The format of the results is the following.
+```
+Project     Case    Rank
+<project>   <case>  <rank of fault>
+...
+```
+
+
+## Reproducing the experiments for approximated oracle with different thresholds (Table 5, 6)
+
+```sh
+# If you want to reproduce whole experimental data,
+# Approximated oracle with P_100 (Table 5)
+$ ./script/run-oracle-pass-100.sh
+# Approximated oracle with F_90 (Table 6)
+$ ./script/run-oracle-fail-90.sh
+
+# If you want to reproduce results with given data (./flip_result)
+# Approximated oracle with P_100 (Table 5)
+$ ./script/process-result-oracle-pass-100.py
+# Approximated oracle with F_90 (Table 6)
+$ ./script/process-result-oracle-fail-90.py
+```
+
+## Reproducing the experiments for different aggregation schemes (Table 7)
+
+```sh
+# If you want to reproduce whole experimental data,
+# Flip with P_max scheme
+$ ./script/run-oracle-pass-max.sh
+# Flip with F_avg scheme
+$ ./script/run-oracle-fail-avg.sh
+
+# If you want to reproduce results with given data (./flip_result)
+# Flip with P_max scheme
+$ ./script/process-result-oracle-pass-max.py
+# Flip with F_avg scheme
+$ ./script/process-result-oracle-fail-avg.py
+```
+
+## Reproducing the experiments for impact analysis of P_pass and P_fail (Table 8)
+```sh
+# If you want to reproduce whole experimental data,
+# Flip only with P_pass
+$ ./script/run-oracle-pass-only.sh
+# Flip only with P_fail
+$ ./script/run-oracle-fail-only.sh
+
+# If you want to reproduce results with given data (./flip_result)
+# Flip only with P_pass
+$ ./script/process-result-oracle-pass-only.py
+# Flip only with P_fail
+$ ./script/process-result-oracle-fail-only.py
+```
+
+## Experiment data
+
+Our experimental data are given in `flip_result`.
+It contains data with the following structure.
+```
+├─ main_result                          <- Results for main experiments (Table 4)
+|   ├─ stmt                             <- Results for statement-level FL
+|   |   ├─ <project>                      
+|   |   |   ├─ <case>
+|   |   |   |   └─ cov_result.txt       <- Result file for each benchmark case
+|   |   |   └─  ...
+|   |   └─ ...
+|   └─ function                         <- Results for function-level FL
+|       ├─ ...
+|
+├─ oracle                               <- Results for approximated oracle with different thresholds (Table 5, 6)
+|   ├─ passing                          <- Results for approximated oracle with P_100 (Table 5)
+|   |
+|   └─ failing                          <- Results for approximated oracle with F_90 (Table 6)
+|
+├─ aggregation                          <- Results for different aggregation schemes (Table 7) 
+|   ├─ passing                          <- Results for Flip with P_max scheme
+|   |
+|   └─ failing                          <- Results for Flip with F_avg scheme
+|
+├─ passing                              <- Results for impact analysis of P_pass (Table 8)
+|
+└─ failing                              <- Results for impact analysis of P_fail (Table 8)
+```
+
+
+
+<!-- ## Collecting branch information
 
 ```
 # Following commands are running in the docker container.
@@ -109,30 +237,6 @@ $ /bugfixer/localizer/main.exe -engine error_run .
 
 The result file is stored at `/experiment/localizer-out/result.txt`
 
-The format of `result.txt` is the same as passing experiment one.
+The format of `result.txt` is the same as passing experiment one. -->
 
 
-## Experiment data
-
-Our experimental data is given in `flip_result`
-
-It contains data with the following structure.
-```
-├─ main_result
-|   ├─ stmt
-|   |   ├─ project
-|   |   |   ├─ case
-|   |   |   |   └─ cov_result.txt
-|   |   |   └─  ...
-|   |   └─ ...
-|   |
-|   └─ function
-|
-├─ oracle
-|
-├─ passing
-|
-├─ failing
-|
-└─ ...
-```

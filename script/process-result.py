@@ -217,7 +217,7 @@ def get_result(args, result_file):
 def print_result(result_list):
     #print(result)
     new_result = {}
-    print("Project\tCase\tRank\tTie\tTotal")
+    print("Project\tCase\tRank")
     for result in result_list:
         for project in result:
             if project not in new_result:
@@ -225,8 +225,7 @@ def print_result(result_list):
             for case in result[project]:
                 if case not in new_result[project]:
                     new_result[project][case] = []
-                new_result[project][case].append("\t".join(
-                    map(str, result[project][case])))
+                new_result[project][case].append(str(result[project][case][0]))
     for project in new_result:
         for case in new_result[project]:
             print(project + "\t" + case + "\t" +
