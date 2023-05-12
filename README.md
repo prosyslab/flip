@@ -37,7 +37,7 @@ Run the following command to install Flip:
 ```
 $ ./build.sh
 ```
-The above command will install all the dependencies and Flip.
+The above command will install all the dependencies and build Flip.
 
 <!-- ## Running benchmark docker
 
@@ -77,7 +77,6 @@ Project     Case    Rank
 If you want to reproduce a specific benchmark with given data, you can execute with `-p` and `-c` arguments.
 
 
-
 ## Reproducing the experiments for approximated oracle with different thresholds (Table 5, 6)
 
 ```sh
@@ -93,6 +92,10 @@ $ ./script/process-result-oracle-pass-100.py -p <project> -c <case>
 # Approximated oracle with F_90 (Table 6)
 $ ./script/process-result-oracle-fail-90.py -p <project> -c <case>
 ```
+
+To reproduce table 5 and 6, you can execute the above commands.
+
+The format of the result is the same as the main results.
 
 ## Reproducing the experiments for different aggregation schemes (Table 7)
 
@@ -110,6 +113,10 @@ $ ./script/process-result-oracle-pass-max.py -p <project> -c <case>
 $ ./script/process-result-oracle-fail-avg.py -p <project> -c <case>
 ```
 
+To reproduce table 7, you can execute the above commands.
+
+The format of the result is the same as the main results.
+
 ## Reproducing the experiments for impact analysis of P_pass and P_fail (Table 8)
 ```sh
 # If you want to reproduce whole experimental data,
@@ -124,6 +131,10 @@ $ ./script/process-result-oracle-pass-only.py -p <project> -c <case>
 # Flip only with P_fail
 $ ./script/process-result-oracle-fail-only.py -p <project> -c <case>
 ```
+
+To reproduce table 8, you can execute the above commands.
+
+The format of the result is the same as the main results.
 
 ## Experiment data
 
