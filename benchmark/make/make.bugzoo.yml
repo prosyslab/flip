@@ -1,0 +1,198 @@
+version: "1.0"
+
+blueprints:
+  - type: docker
+    tag: squareslab/corebench:make
+    file: Dockerfile
+    context: .
+    depends-on: squareslab/corebench:base
+
+  - type: docker
+    tag: squareslab/corebench:make-c3524b83-fd30db12
+    file: Dockerfile.bug
+    depends-on: squareslab/corebench:make
+    arguments:
+      bug_commit: c3524b83
+      fix_commit: fd30db12
+      
+bugs:
+  - name: corebench:make:c3524b83-fd30db12
+    program: make 
+    dataset: corebench
+    image: squareslab/corebench:make-c3524b83-fd30db12
+    source-location: /experiment/src
+    languages:
+      - c
+    compiler:
+      time-limit: 300
+      type: configure-and-make
+    test-harness:
+      failing: 1
+      passing: 115 
+      time-limit: 25
+      type: genprog
+  - name: corebench:make:3aa2aa7e-0a81d50d
+    program: make 
+    dataset: corebench
+    image: squareslab/corebench:make-3aa2aa7e-0a81d50d
+    source-location: /experiment/src
+    languages:
+      - c
+    compiler:
+      time-limit: 300
+      type: configure-and-make
+    test-harness:
+      failing: 1
+      passing: 114 
+      time-limit: 25
+      type: genprog
+  - name: corebench:make:87ac68fe-40a49f24
+    program: make 
+    dataset: corebench
+    image: squareslab/corebench:make-87ac68fe-40a49f24
+    source-location: /experiment/src
+    languages:
+      - c
+    compiler:
+      time-limit: 300
+      type: configure-and-make
+    test-harness:
+      failing: 1
+      passing: 113 
+      time-limit: 25
+      type: genprog
+  - name: corebench:make:ca17e553-686a74bf
+    program: make 
+    dataset: corebench
+    image: squareslab/corebench:make-ca17e553-686a74bf
+    source-location: /experiment/src
+    languages:
+      - c
+    compiler:
+      time-limit: 300
+      type: configure-and-make
+    test-harness:
+      failing: 1
+      passing: 110 
+      time-limit: 25
+      type: genprog
+  - name: corebench:make:a94b0b0e-fbe5b2c9
+    program: make 
+    dataset: corebench
+    image: squareslab/corebench:make-a94b0b0e-fbe5b2c9
+    source-location: /experiment/src
+    languages:
+      - c
+    compiler:
+      time-limit: 300
+      type: configure-and-make
+    test-harness:
+      failing: 1
+      passing: 109 
+      time-limit: 25
+      type: genprog
+  - name: corebench:make:64055348-88f1bc8b
+    program: make 
+    dataset: corebench
+    image: squareslab/corebench:make-64055348-88f1bc8b
+    source-location: /experiment/src
+    languages:
+      - c
+    compiler:
+      time-limit: 300
+      type: configure-and-make
+    test-harness:
+      failing: 1
+      passing: 108 
+      time-limit: 25
+      type: genprog
+  - name: corebench:make:c3188c6f-3b1432d8
+    program: make 
+    dataset: corebench
+    image: squareslab/corebench:make-c3188c6f-3b1432d8
+    source-location: /experiment/src
+    languages:
+      - c
+    compiler:
+      time-limit: 300
+      type: configure-and-make
+    test-harness:
+      failing: 1
+      passing: 106 
+      time-limit: 25
+      type: genprog
+  - name: corebench:make:036760a9-5acda13a
+    program: make 
+    dataset: corebench
+    image: squareslab/corebench:make-036760a9-5acda13a
+    source-location: /experiment/src
+    languages:
+      - c
+    compiler:
+      time-limit: 300
+      type: configure-and-make
+    test-harness:
+      failing: 1
+      passing: 105 
+      time-limit: 25
+      type: genprog
+  - name: corebench:make:91be5155-036760a9
+    program: make 
+    dataset: corebench
+    image: squareslab/corebench:make-91be5155-036760a9
+    source-location: /experiment/src
+    languages:
+      - c
+    compiler:
+      time-limit: 300
+      type: configure-and-make
+    test-harness:
+      failing: 1
+      passing: 105 
+      time-limit: 25
+      type: genprog
+  - name: corebench:make:97f106fa-fc644b4c
+    program: make 
+    dataset: corebench
+    image: squareslab/corebench:make-97f106fa-fc644b4c
+    source-location: /experiment/src
+    languages:
+      - c
+    compiler:
+      time-limit: 300
+      type: configure-and-make
+    test-harness:
+      failing: 1
+      passing: 103 
+      time-limit: 25
+      type: genprog
+  - name: corebench:make:0afbbf85-d65b267e
+    program: make 
+    dataset: corebench
+    image: squareslab/corebench:make-0afbbf85-d65b267e
+    source-location: /experiment/src
+    languages:
+      - c
+    compiler:
+      time-limit: 300
+      type: configure-and-make
+    test-harness:
+      failing: 1
+      passing: 98 
+      time-limit: 25
+      type: genprog
+  - name: corebench:make:3cc351de-0afbbf85
+    program: make 
+    dataset: corebench
+    image: squareslab/corebench:make-3cc351de-0afbbf85
+    source-location: /experiment/src
+    languages:
+      - c
+    compiler:
+      time-limit: 300
+      type: configure-and-make
+    test-harness:
+      failing: 1
+      passing: 98 
+      time-limit: 25
+      type: genprog

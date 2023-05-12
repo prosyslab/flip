@@ -328,7 +328,7 @@ let error_run work_dir bug_desc =
      |> ignore; *)
   Unix.chdir scenario.Scenario.work_dir;
   spec_localizer work_dir bug_desc [ (ochiai_localizer, "ochiai") ]
-  |> Fun.flip print "result_failing.txt"
+  |> Fun.flip print "result.txt"
 
 let branch_printer work_dir bug_desc =
   let scenario = Scenario.init ~stdio_only:true work_dir in
@@ -347,6 +347,8 @@ let function_printer work_dir bug_desc =
 let run work_dir =
   Logging.log "Start localization";
   let bug_desc = BugDesc.read work_dir in
+  if bug_desc.BugDesc.program = "make" || bug_desc.BugDesc.program = "grep" then
+    Cmdline.corebench := true;
   Logging.log "Bug desc: %a" BugDesc.pp bug_desc;
   let localizer = spec_localizer in
   match !Cmdline.engine with

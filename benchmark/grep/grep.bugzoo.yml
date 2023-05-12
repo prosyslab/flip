@@ -1,0 +1,228 @@
+version: "1.0"
+
+blueprints:
+  - type: docker
+    tag: squareslab/manybugs:grep
+    file: Dockerfile
+    context: .
+    depends-on: squareslab/manybugs:base
+
+  - type: docker
+    tag: squareslab/manybugs:grep-2.18-2.19
+    file: Dockerfile.bug
+    depends-on: squareslab/manybugs:grep
+    arguments:
+      bug_commit: 2.18
+      fix_commit: 2.19
+      
+bugs:
+  - name: manybugs:grep:2.18-2.19
+    program: grep 
+    dataset: manybugs
+    image: squareslab/manybugs:grep-2.18-2.19
+    source-location: /experiment/src
+    languages:
+      - c
+    compiler:
+      time-limit: 300
+      type: configure-and-make
+    test-harness:
+      failing: 1
+      passing: 43 
+      time-limit: 25
+      type: genprog
+  - name: corebench:grep:e99afd62-c96b0f2c
+    program: grep 
+    dataset: corebench
+    image: squareslab/corebench:grep-e99afd62-c96b0f2c
+    source-location: /experiment/src
+    languages:
+      - c
+    compiler:
+      time-limit: 300
+      type: configure-and-make
+    test-harness:
+      failing: 1
+      passing: 47 
+      time-limit: 25
+      type: genprog
+  - name: corebench:grep:074842d3-2be0c659
+    program: grep 
+    dataset: corebench
+    image: squareslab/corebench:grep-074842d3-2be0c659
+    source-location: /experiment/src
+    languages:
+      - c
+    compiler:
+      time-limit: 300
+      type: configure-and-make
+    test-harness:
+      failing: 1
+      passing: 46 
+      time-limit: 25
+      type: genprog
+  - name: corebench:grep:2665746b-7aa698d3
+    program: grep 
+    dataset: corebench
+    image: squareslab/corebench:grep-2665746b-7aa698d3
+    source-location: /experiment/src
+    languages:
+      - c
+    compiler:
+      time-limit: 300
+      type: configure-and-make
+    test-harness:
+      failing: 1
+      passing: 44 
+      time-limit: 25
+      type: genprog
+  - name: corebench:grep:ee9c7844-3c3bdace
+    program: grep 
+    dataset: corebench
+    image: squareslab/corebench:grep-ee9c7844-3c3bdace
+    source-location: /experiment/src
+    languages:
+      - c
+    compiler:
+      time-limit: 300
+      type: configure-and-make
+    test-harness:
+      failing: 1
+      passing: 38 
+      time-limit: 25
+      type: genprog
+  - name: corebench:grep:e1d437a5-c1cb19fe
+    program: grep 
+    dataset: corebench
+    image: squareslab/corebench:grep-e1d437a5-c1cb19fe
+    source-location: /experiment/src
+    languages:
+      - c
+    compiler:
+      time-limit: 300
+      type: configure-and-make
+    test-harness:
+      failing: 1
+      passing: 17 
+      time-limit: 25
+      type: genprog
+  - name: corebench:grep:c1cb19fe-8f08d8e2
+    program: grep 
+    dataset: corebench
+    image: squareslab/corebench:grep-c1cb19fe-8f08d8e2
+    source-location: /experiment/src
+    languages:
+      - c
+    compiler:
+      time-limit: 300
+      type: configure-and-make
+    test-harness:
+      failing: 1
+      passing: 17 
+      time-limit: 25
+      type: genprog
+  - name: corebench:grep:90cc2ba2-3220317a
+    program: grep 
+    dataset: corebench
+    image: squareslab/corebench:grep-90cc2ba2-3220317a
+    source-location: /experiment/src
+    languages:
+      - c
+    compiler:
+      time-limit: 300
+      type: configure-and-make
+    test-harness:
+      failing: 1
+      passing: 17 
+      time-limit: 25
+      type: genprog
+  - name: corebench:grep:a2e01934-55cf7b6a
+    program: grep 
+    dataset: corebench
+    image: squareslab/corebench:grep-a2e01934-55cf7b6a
+    source-location: /experiment/src
+    languages:
+      - c
+    compiler:
+      time-limit: 300
+      type: configure-and-make
+    test-harness:
+      failing: 1
+      passing: 43 
+      time-limit: 25
+      type: genprog
+  - name: corebench:grep:a1ea9506-5fa8c7c9
+    program: grep 
+    dataset: corebench
+    image: squareslab/corebench:grep-a1ea9506-5fa8c7c9
+    source-location: /experiment/src
+    languages:
+      - c
+    compiler:
+      time-limit: 300
+      type: configure-and-make
+    test-harness:
+      failing: 1
+      passing: 17 
+      time-limit: 25
+      type: genprog
+  - name: corebench:grep:c2b9a4fe-6d952bee
+    program: grep 
+    dataset: corebench
+    image: squareslab/corebench:grep-c2b9a4fe-6d952bee
+    source-location: /experiment/src
+    languages:
+      - c
+    compiler:
+      time-limit: 300
+      type: configure-and-make
+    test-harness:
+      failing: 1
+      passing: 17 
+      time-limit: 25
+      type: genprog
+  - name: corebench:grep:3a4b5484-db9d6340
+    program: grep 
+    dataset: corebench
+    image: squareslab/corebench:grep-3a4b5484-db9d6340
+    source-location: /experiment/src
+    languages:
+      - c
+    compiler:
+      time-limit: 300
+      type: configure-and-make
+    test-harness:
+      failing: 1
+      passing: 17 
+      time-limit: 25
+      type: genprog
+  - name: corebench:grep:0b027cfb-54d55bba
+    program: grep 
+    dataset: corebench
+    image: squareslab/corebench:grep-0b027cfb-54d55bba
+    source-location: /experiment/src
+    languages:
+      - c
+    compiler:
+      time-limit: 300
+      type: configure-and-make
+    test-harness:
+      failing: 1
+      passing: 17 
+      time-limit: 25
+      type: genprog
+  - name: corebench:grep:02f1daa1-074842d3
+    program: grep 
+    dataset: corebench
+    image: squareslab/corebench:grep-02f1daa1-074842d3
+    source-location: /experiment/src
+    languages:
+      - c
+    compiler:
+      time-limit: 300
+      type: configure-and-make
+    test-harness:
+      failing: 1
+      passing: 46 
+      time-limit: 25
+      type: genprog

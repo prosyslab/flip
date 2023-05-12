@@ -10,13 +10,9 @@ import yaml
 import json
 
 PROJECT_HOME = os.path.dirname(os.path.dirname(os.path.realpath(__file__)))
-LOCALIZER_HOME = os.path.join(PROJECT_HOME, "bug-localizer")
+LOCALIZER_HOME = os.path.join(PROJECT_HOME, "flip")
 LOCALIZER_BIN_DIR = os.path.join(LOCALIZER_HOME, "_build/default/src")
-SYNTHESIZER_HOME = os.path.join(PROJECT_HOME, "patch-synthesizer")
-SYNTHESIZER_BIN_DIR = os.path.join(SYNTHESIZER_HOME, "_build/default/src")
 MANYBUGS_HOME = os.path.join(PROJECT_HOME, "benchmark")
-SPARROW_HOME = os.path.join(PROJECT_HOME, "sparrow")
-SMAKE_HOME = os.path.join(PROJECT_HOME, "smake")
 
 DOCKER_IN_DIR = '/bugfixer'
 
@@ -62,12 +58,7 @@ def run_docker(args, program, bug_id):
     cmd = [
         'docker', 'run', '-it', '-v',
         "{}:{}".format(LOCALIZER_BIN_DIR,
-                       os.path.join(DOCKER_IN_DIR, 'localizer')),
-        '-v', "{}:{}".format(SPARROW_HOME,
-                             os.path.join(DOCKER_IN_DIR, 'sparrow')), '-v',
-        "{}:{}".format(SMAKE_HOME, os.path.join(DOCKER_IN_DIR, 'smake')), '-v',
-        "{}:{}".format(SYNTHESIZER_BIN_DIR,
-                       os.path.join(DOCKER_IN_DIR, 'synthesizer')), '--mount',
+                       os.path.join(DOCKER_IN_DIR, 'localizer')), '--mount',
         'type=bind,source={},destination={}'.format(
             bug_desc_file, os.path.join(DOCKER_IN_DIR, 'bug_desc.json'))
     ]
