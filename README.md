@@ -2,7 +2,7 @@
 
 Flip is a framework for fault localization with external oracle using counterfactual execution.
 
-## Requirements
+## System Requirements
 
 We assume that Flip is executed with the following environment settings.
 - Ubuntu 20.04
@@ -61,9 +61,9 @@ $ ./script/run-main-function.sh
 
 # If you want to reproduce results with given data (./flip_result)
 # Statement-level FL results
-$ ./script/process-result-main-stmt.py
+$ ./script/process-result-main-stmt.py -p <project> -c <case>
 # Function-level FL results
-$ ./script/process-result-main-function.py
+$ ./script/process-result-main-function.py -p <project> -c <case>
 ```
 
 To reproduce our main experimental data, you can execute the above commands.
@@ -74,6 +74,8 @@ Project     Case    Rank
 <project>   <case>  <rank of fault>
 ...
 ```
+If you want to reproduce a specific benchmark with given data, you can execute with `-p` and `-c` arguments.
+
 
 
 ## Reproducing the experiments for approximated oracle with different thresholds (Table 5, 6)
@@ -87,9 +89,9 @@ $ ./script/run-oracle-fail-90.sh
 
 # If you want to reproduce results with given data (./flip_result)
 # Approximated oracle with P_100 (Table 5)
-$ ./script/process-result-oracle-pass-100.py
+$ ./script/process-result-oracle-pass-100.py -p <project> -c <case>
 # Approximated oracle with F_90 (Table 6)
-$ ./script/process-result-oracle-fail-90.py
+$ ./script/process-result-oracle-fail-90.py -p <project> -c <case>
 ```
 
 ## Reproducing the experiments for different aggregation schemes (Table 7)
@@ -103,9 +105,9 @@ $ ./script/run-oracle-fail-avg.sh
 
 # If you want to reproduce results with given data (./flip_result)
 # Flip with P_max scheme
-$ ./script/process-result-oracle-pass-max.py
+$ ./script/process-result-oracle-pass-max.py -p <project> -c <case>
 # Flip with F_avg scheme
-$ ./script/process-result-oracle-fail-avg.py
+$ ./script/process-result-oracle-fail-avg.py -p <project> -c <case>
 ```
 
 ## Reproducing the experiments for impact analysis of P_pass and P_fail (Table 8)
@@ -118,9 +120,9 @@ $ ./script/run-oracle-fail-only.sh
 
 # If you want to reproduce results with given data (./flip_result)
 # Flip only with P_pass
-$ ./script/process-result-oracle-pass-only.py
+$ ./script/process-result-oracle-pass-only.py -p <project> -c <case>
 # Flip only with P_fail
-$ ./script/process-result-oracle-fail-only.py
+$ ./script/process-result-oracle-fail-only.py -p <project> -c <case>
 ```
 
 ## Experiment data

@@ -7,12 +7,10 @@ import math
 from parse import *
 from pathlib import Path
 from benchmark import benchmark, patch_location
-# from benchmark import benchmark
-# from benchmark import patch_location_fun as patch_location
 
 PROJECT_HOME = Path(__file__).resolve().parent.parent
 YML_DIR = os.path.join(PROJECT_HOME, 'benchmark')
-COVERAGE_DIR = PROJECT_HOME / 'flip_result' / 'main_result' / 'function'
+COVERAGE_DIR = PROJECT_HOME / 'flip_result' / 'oracle' / 'passing'
 
 nef_sum = 0
 nef_num = 0
@@ -243,8 +241,6 @@ def main():
     args = parser.parse_args()
     result = get_result(args, 'cov_result.txt')
     print_result([result])
-    # print(nef_sum / nef_num)
-    # print(all_sum / all_num)
 
 
 if __name__ == '__main__':
