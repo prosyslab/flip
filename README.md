@@ -82,6 +82,8 @@ Project     Case    Rank
 ```
 If you want to reproduce a specific benchmark with given data, you can execute with `-p` and `-c` arguments.
 
+If you cannot execute scripts, please use sudo command.
+For example, `sudo ./script/run-main-stmt.sh`
 
 ## Reproducing the experiments for approximated oracle with different thresholds (Table 5, 6)
 
