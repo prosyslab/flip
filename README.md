@@ -8,6 +8,8 @@ We assume that Flip is executed with the following environment settings.
 - Ubuntu 20.04
 - Opam 2.1.0 +
 - Docker
+- python 3.8+
+- pip3
 
 ## Directory structure
 
