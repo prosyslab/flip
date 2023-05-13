@@ -185,6 +185,8 @@ def get_one_result(project, case, result_file):
         answer_score, answer_index = get_answer_index(project, case, rank_list)
         start, end = get_same_rank(rank_list, answer_score)
         rank, tie, total = calculate_info(rank_list, start, end)
+        if rank <= 0:
+            rank = total-1
         return rank, tie, total
     except FileNotFoundError:
         return 0, 0, 0

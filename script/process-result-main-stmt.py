@@ -12,7 +12,7 @@ from benchmark import benchmark, patch_location
 
 PROJECT_HOME = Path(__file__).resolve().parent.parent
 YML_DIR = os.path.join(PROJECT_HOME, 'benchmark')
-COVERAGE_DIR = PROJECT_HOME / 'flip_result' / 'oracle' / 'failing'
+COVERAGE_DIR = PROJECT_HOME / 'flip_result' / 'main_result' / 'stmt'
 
 nef_sum = 0
 nef_num = 0

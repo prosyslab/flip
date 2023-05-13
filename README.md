@@ -108,9 +108,9 @@ $ ./script/run-oracle-fail-avg.sh
 
 # If you want to reproduce results with given data (./flip_result)
 # Flip with P_max scheme
-$ ./script/process-result-oracle-pass-max.py -p <project> -c <case>
+$ ./script/process-result-aggregation-pass-max.py -p <project> -c <case>
 # Flip with F_avg scheme
-$ ./script/process-result-oracle-fail-avg.py -p <project> -c <case>
+$ ./script/process-result-aggregation-fail-avg.py -p <project> -c <case>
 ```
 
 To reproduce table 7, you can execute the above commands.
@@ -127,9 +127,9 @@ $ ./script/run-oracle-fail-only.sh
 
 # If you want to reproduce results with given data (./flip_result)
 # Flip only with P_pass
-$ ./script/process-result-oracle-pass-only.py -p <project> -c <case>
+$ ./script/process-result-pass-only.py -p <project> -c <case>
 # Flip only with P_fail
-$ ./script/process-result-oracle-fail-only.py -p <project> -c <case>
+$ ./script/process-result-fail-only.py -p <project> -c <case>
 ```
 
 To reproduce table 8, you can execute the above commands.

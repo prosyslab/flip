@@ -1,3 +1,15 @@
+gzip.c:1348,1.0,0.0
+inflate.c:347,1.0,0.0
+inflate.c:460,1.0,0.0
+inflate.c:346,1.0,0.0
+inflate.c:344,1.0,0.0
+inflate.c:341,1.0,0.0
+inflate.c:339,1.0,0.0
+inflate.c:345,1.0,0.0
+inflate.c:338,1.0,0.0
+inflate.c:342,1.0,0.0
+gzip.c:1351,1.0,0.0
+inflate.c:343,1.0,0.0
 util.c:196,1.0,1.0
 gzip.c:1318,1.0,1.0
 inflate.c:380,1.0,1.0
@@ -453,6 +465,7 @@ unlzw.c:260,0.0,1.0
 trees.c:1027,0.0,1.0
 deflate.c:349,0.0,1.0
 unlzw.c:236,0.0,1.0
+inflate.c:370,0.0,1.0
 trees.c:714,0.0,1.0
 trees.c:724,0.0,1.0
 zip.c:128,0.0,1.0
