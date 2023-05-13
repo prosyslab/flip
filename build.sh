@@ -32,11 +32,5 @@ opam install -j $NCPU dune batteries cil ppx_compare ocamlformat ocamlgraph merl
 
 make
 
-# build sparrow
-pushd sparrow
-opam pin add . -n
-opam install -j $NCPU sparrow --deps-only
-opam pin remove sparrow
-popd
-
+# install python dependencies
 yes | pip3 install -r requirements.txt
