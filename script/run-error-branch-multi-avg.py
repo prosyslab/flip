@@ -7,13 +7,13 @@ import subprocess
 from asyncio.subprocess import DEVNULL
 import logging
 import multiprocessing
-import parmap
+
 import yaml
 import random
-import numpy as np
+
 from benchmark import benchmark
 from difflib import SequenceMatcher
-import tqdm
+
 import filecmp
 
 

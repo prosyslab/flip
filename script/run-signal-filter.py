@@ -7,7 +7,7 @@ import subprocess
 from asyncio.subprocess import DEVNULL
 import logging
 import multiprocessing
-import parmap
+
 from benchmark import benchmark
 
 PROJECT_HOME = Path(__file__).resolve().parent.parent

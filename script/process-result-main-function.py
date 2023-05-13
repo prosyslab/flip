@@ -127,24 +127,24 @@ def get_rank_list(project, case, result_file):
             if nef > max_nef:
                 max_nef = nef
 
-    # function_list = read_function_list(project, case)
-    # func_rank_dict = {}
-    # for rank, score, ground in rank_list:
-    #     filename, lineno = ground
-    #     # (location[0], function_list[location[0]][find_function_line(function_list, location[0], location[1])])
-    #     if os.path.basename(filename) not in function_list:
-    #         func_rank_dict[ground] = score
-    #         continue
-    #     new_ground = (filename, function_list[os.path.basename(filename)][find_function_line(function_list, filename, lineno)])
-    #     if new_ground not in func_rank_dict:
-    #         func_rank_dict[new_ground] = score
-    #     else:
-    #         func_score = func_rank_dict[new_ground]
-    #         if score < func_score and score > 0:
-    #             func_rank_dict[new_ground] = score
-    # rank_list = []
-    # for ground in func_rank_dict:
-    #     rank_list.append((0, func_rank_dict[ground], ground))
+    function_list = read_function_list(project, case)
+    func_rank_dict = {}
+    for rank, score, ground in rank_list:
+        filename, lineno = ground
+        # (location[0], function_list[location[0]][find_function_line(function_list, location[0], location[1])])
+        if os.path.basename(filename) not in function_list:
+            func_rank_dict[ground] = score
+            continue
+        new_ground = (filename, function_list[os.path.basename(filename)][find_function_line(function_list, filename, lineno)])
+        if new_ground not in func_rank_dict:
+            func_rank_dict[new_ground] = score
+        else:
+            func_score = func_rank_dict[new_ground]
+            if score < func_score and score > 0:
+                func_rank_dict[new_ground] = score
+    rank_list = []
+    for ground in func_rank_dict:
+        rank_list.append((0, func_rank_dict[ground], ground))
 
     rank_list.sort(key=lambda x: -(x[1]))
     rank_list = [(j+1, x[1], x[2]) for j, x in enumerate(rank_list)]
@@ -156,8 +156,8 @@ def get_rank_list(project, case, result_file):
 
 
 def get_answer_index(project, case, rank_list):
-    # patch_location_fun = make_patch_location_function(read_function_list(project, case), project, case)
-    # patch_location = patch_location_fun
+    patch_location_fun = make_patch_location_function(read_function_list(project, case), project, case)
+    patch_location = patch_location_fun
     for rank, score, ground in rank_list:
         if ground in patch_location[project][case]:
             return score, rank

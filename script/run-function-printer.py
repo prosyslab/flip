@@ -7,9 +7,9 @@ import subprocess
 from asyncio.subprocess import DEVNULL
 import logging
 import multiprocessing
-import parmap
+
 from time import sleep
-from tqdm import tqdm
+
 from benchmark import benchmark
 import random
 
