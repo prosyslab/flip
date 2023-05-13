@@ -38,3 +38,5 @@ opam pin add . -n
 opam install -j $NCPU sparrow --deps-only
 opam pin remove sparrow
 popd
+
+yes | pip3 install -r requirements.txt

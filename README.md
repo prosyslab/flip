@@ -39,6 +39,8 @@ $ ./build.sh
 ```
 The above command will install all the dependencies and build Flip.
 
+Note that It would take some time.
+
 <!-- ## Running benchmark docker
 
 ```
@@ -68,6 +70,8 @@ $ ./script/process-result-main-function.py -p <project> -c <case>
 
 To reproduce our main experimental data, you can execute the above commands.
 
+Note that It would take some time to reproduce whole experimental data.
+
 The format of the results is the following.
 ```
 Project     Case    Rank
@@ -95,6 +99,8 @@ $ ./script/process-result-oracle-fail-90.py -p <project> -c <case>
 
 To reproduce table 5 and 6, you can execute the above commands.
 
+Note that It would take some time to reproduce whole experimental data.
+
 The format of the result is the same as the main results.
 
 ## Reproducing the experiments for different aggregation schemes (Table 7)
@@ -115,6 +121,8 @@ $ ./script/process-result-aggregation-fail-avg.py -p <project> -c <case>
 
 To reproduce table 7, you can execute the above commands.
 
+Note that It would take some time to reproduce whole experimental data.
+
 The format of the result is the same as the main results.
 
 ## Reproducing the experiments for impact analysis of P_pass and P_fail (Table 8)
@@ -133,6 +141,8 @@ $ ./script/process-result-fail-only.py -p <project> -c <case>
 ```
 
 To reproduce table 8, you can execute the above commands.
+
+Note that It would take some time to reproduce whole experimental data.
 
 The format of the result is the same as the main results.
 
