@@ -1,0 +1,181 @@
+diff --git a/framework/bin/d4j/d4j-test b/framework/bin/d4j/d4j-test
+index 3bd0624a..74b2d21c 100644
+--- a/framework/bin/d4j/d4j-test
++++ b/framework/bin/d4j/d4j-test
+@@ -28,7 +28,7 @@ d4j-test -- run tests on a checked-out project version.
+ 
+ =head1 SYNOPSIS
+ 
+-  d4j-test [-w work_dir] [-r | [-t single_test] [-s test_suite]]
++  d4j-test [-w work_dir] [-r | [-t single_test] [-s test_suite] [-a arguments]]
+ 
+ =head1 DESCRIPTION
+ 
+@@ -55,6 +55,10 @@ tests of the checked-out project version are executed.
+ Only run this single test method (optional). By default all tests are executed.
+ Format: <test_class>::<test_method>.
+ 
++=item -a C<args>
++
++Arguments for jvm. -D must be added(e.g. -Djvmargs=-javaagent:myagent.jar)
++
+ =item -s F<test_suite>
+ 
+ The archive file name of an external test suite (optional). The default test suite is the
+@@ -94,12 +98,14 @@ use Getopt::Std;
+ use Pod::Usage;
+ 
+ my %cmd_opts;
+-getopts('t:w:rs:', \%cmd_opts) or pod2usage( { -verbose => 1, -input => __FILE__} );
++getopts('t:w:rs:a:', \%cmd_opts) or pod2usage( { -verbose => 1, -input => __FILE__} );
+ 
+ my $WORK_DIR = Utils::get_abs_path($cmd_opts{w} // ".");
+ my $REL_TESTS = defined $cmd_opts{r} ? 1 : 0;
+ my $SINGLE_TEST = $cmd_opts{t};
+ my $TEST_SUITE = $cmd_opts{s};
++my $ARGS = $cmd_opts{a};
++$ARGS = "" unless defined $ARGS;
+ if ((defined $SINGLE_TEST || defined $TEST_SUITE) && $REL_TESTS==1) {
+     pod2usage( { -verbose => 1, -input => __FILE__} );
+ }
+@@ -124,15 +130,15 @@ if (defined $TEST_SUITE){
+     my $test_dir = "$WORK_DIR/.test_suite";
+     Utils::extract_test_suite($TEST_SUITE, $test_dir) or die;
+     $project->compile_ext_tests($test_dir) or die "Cannot compile extracted test suite!";
+-    $project->run_ext_tests($test_dir, "*.java", $fail_tests, $SINGLE_TEST) or die "Cannot run tests!";
++    $project->run_ext_tests($test_dir, "*.java", $fail_tests,  $ARGS, $SINGLE_TEST) or die "Cannot run tests!";
+ } elsif ($REL_TESTS) {
+     # Compile and run only relevant developer-written tests
+     $project->compile_tests() or die "Cannot compile test suite!";
+-    $project->run_relevant_tests($fail_tests) or die "Cannot run tests!";
++    $project->run_relevant_tests($fail_tests, $ARGS) or die "Cannot run tests!";
+ } else {
+     # Compile and run developer-written tests
+     $project->compile_tests() or die "Cannot compile test suite!";
+-    $project->run_tests($fail_tests, $SINGLE_TEST) or die "Cannot run tests!";
++    $project->run_tests($fail_tests, $ARGS, $SINGLE_TEST) or die "Cannot run tests!";
+ }
+ 
+ my $trigger = Utils::get_failing_tests($fail_tests) or die "Cannot determine triggering tests!";
+diff --git a/framework/core/Project.pm b/framework/core/Project.pm
+index a23ba4bf..4c9dbead 100644
+--- a/framework/core/Project.pm
++++ b/framework/core/Project.pm
+@@ -562,7 +562,7 @@ Format of C<single_test>: <classname>::<methodname>.
+ 
+ sub run_tests {
+     @_ >= 2 or die $ARG_ERROR;
+-    my ($self, $out_file, $single_test) = @_;
++    my ($self, $out_file, $args, $single_test) = @_;
+ 
+     my $single_test_opt = "";
+     if (defined $single_test) {
+@@ -570,7 +570,7 @@ sub run_tests {
+         $single_test_opt = "-Dtest.entry.class=$1 -Dtest.entry.method=$2";
+     }
+ 
+-    return $self->_ant_call_comp("run.dev.tests", "-DOUTFILE=$out_file $single_test_opt");
++    return $self->_ant_call_comp("run.dev.tests", "-DOUTFILE=$out_file $single_test_opt $args");
+ }
+ 
+ =pod
+@@ -583,10 +583,10 @@ program version. Failing tests are written to C<result_file>.
+ =cut
+ 
+ sub run_relevant_tests {
+-    @_ == 2 or die $ARG_ERROR;
+-    my ($self, $out_file) = @_;
++    @_ >= 2 or die $ARG_ERROR;
++    my ($self, $out_file, $args) = @_;
+ 
+-    return $self->_ant_call_comp("run.dev.tests", "-DOUTFILE=$out_file -Dd4j.relevant.tests.only=true");
++    return $self->_ant_call_comp("run.dev.tests", "-DOUTFILE=$out_file -Dd4j.relevant.tests.only=true $args");
+ }
+ 
+ =pod
+@@ -631,7 +631,7 @@ Format of C<single_test>: <classname>::<methodname>.
+ 
+ sub run_ext_tests {
+     @_ >= 4 or die $ARG_ERROR;
+-    my ($self, $dir, $include, $out_file, $single_test) = @_;
++    my ($self, $dir, $include, $out_file, $args, $single_test) = @_;
+ 
+     my $single_test_opt = "";
+     if (defined $single_test) {
+@@ -639,7 +639,7 @@ sub run_ext_tests {
+         $single_test_opt = "-Dtest.entry.class=$1 -Dtest.entry.method=$2";
+     }
+ 
+-    return $self->_ant_call("run.gen.tests", "-DOUTFILE=$out_file -Dd4j.test.dir=$dir -Dd4j.test.include=$include $single_test_opt");
++    return $self->_ant_call("run.gen.tests", "-DOUTFILE=$out_file -Dd4j.test.dir=$dir -Dd4j.test.include=$include $single_test_opt $args");
+ }
+ 
+ =pod
+@@ -1113,8 +1113,15 @@ sub _ant_call {
+                 " -Dd4j.dir.projects=$PROJECTS_DIR" .
+                 " -Dbasedir=$self->{prog_root} ${option_str} $target 2>&1";
+     my $log;
++	
++	print "ant cmdline:\n";
++	print $cmd;
++	print "\n";
++	
+     my $ret = Utils::exec_cmd($cmd, "Running ant ($target)", \$log);
+ 
++	print $log;
++
+     if (defined $log_file) {
+         open(OUT, ">>$log_file") or die "Cannot open log file: $!";
+         print(OUT "$log");
+diff --git a/framework/projects/defects4j.build.xml b/framework/projects/defects4j.build.xml
+index f7065dfc..a27d9bb4 100644
+--- a/framework/projects/defects4j.build.xml
++++ b/framework/projects/defects4j.build.xml
+@@ -70,6 +70,8 @@ project-specific build file ("project_id"/"project_id".build.xml) for the
+     <property name="d4j.dir.coverage.report" value="${d4j.workdir}" />
+     <!-- Data file that holds coverage information-->
+     <property name="d4j.file.cobertura.ser" value="cobertura.ser" />
++	<!-- Arguments passed to jvm-->
++	<property name="jvmargs" value = "-Dtricky=tricky"/>
+ 
+     <!-- Additional properties such as tests to exclude.
+          This property file is automatically generated. -->
+@@ -104,8 +106,10 @@ project-specific build file ("project_id"/"project_id".build.xml) for the
+     Run developer-written tests
+ -->
+     <target name="run.dev.tests" depends="compile.tests,update.all.tests" description="Run unit tests">
+-        <junit printsummary="yes" haltonfailure="no" haltonerror="no" fork="no" showOutput="true">
+-            <classpath>
++		<junit printsummary="yes" haltonfailure="no" haltonerror="no" fork="yes" forkmode="once" showOutput="true">
++            <jvmarg value="${jvmargs}" />
++			<jvmarg value="-noverify" />
++			<classpath>
+                 <!-- Make sure that instrumented classes appear at the beginning of the
+                      classpath -->
+                 <pathelement location="${d4j.dir.classes.instrumented}" />
+@@ -115,12 +119,14 @@ project-specific build file ("project_id"/"project_id".build.xml) for the
+             </classpath>
+ 
+             <sysproperty key="OUTFILE" value="${OUTFILE}"/>
+-            <formatter classname="edu.washington.cs.mut.testrunner.Formatter" usefile="false" />
++			<formatter classname="edu.washington.cs.mut.testrunner.Formatter" usefile="false" />
++			<formatter type="plain" usefile ="false" />
+             <test name="${test.entry.class}" methods="${test.entry.method}" if="test.entry.class" />
+             <batchtest unless="test.entry.class">
+                 <fileset refid="all.manual.tests" />
+             </batchtest>
+         </junit>
++		<echo file="jvmargs.log">${jvmargs}</echo>
+         <!-- fail build in case we are running all classes, but there are none in the fileset -->
+         <if> <not> <isset property="test.entry.class" /> </not> <then>
+             <pathconvert refid="all.manual.tests" property="fileset.notempty" setonempty="false" />
+@@ -286,7 +292,8 @@ project-specific build file ("project_id"/"project_id".build.xml) for the
+         <echo message="build.home: ${build.home}" />
+ 
+         <junit printsummary="no" haltonfailure="no" haltonerror="no" fork="yes" forkmode="perBatch" showOutput="true">
+-            <classpath>
++            <jvmarg value="${jvmargs}" />
++			<classpath>
+                 <!-- Make sure that instrumented classes appear at the beginning of the
+                      classpath -->
+                 <pathelement location="${d4j.dir.classes.instrumented}" />

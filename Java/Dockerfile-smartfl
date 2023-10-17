@@ -26,6 +26,8 @@ RUN \
   pip install parse \
               tqdm \
               parmap \
+              func_timeout \
+              numpy \
               && \
   rm -rf /var/lib/apt/lists/*
 
@@ -44,19 +46,23 @@ RUN ln -snf /usr/share/zoneinfo/$TZ /etc/localtime && echo $TZ > /etc/timezone
 # ----------- Step 1. Clone defects4j from github --------------
 WORKDIR /
 RUN git clone https://github.com/rjust/defects4j.git defects4j
-COPY flip /flip
+RUN git clone https://github.com/toledosakasa/SMARTFL.git
 
 # ----------- Step 2. Initialize Defects4J ---------------------
 WORKDIR /defects4j
 RUN git checkout 12dc3da1e049866de3d6b5aa15d4189a698746eb
 RUN cpanm --installdeps .
 RUN ./init.sh
+COPY smartfl/smartfl.patch /defects4j
+RUN git apply smartfl.patch
 
 # ----------- Step 3. Add Defects4J's executables to PATH: ------
 ENV PATH="/defects4j/framework/bin:${PATH}"  
 #--------------
 
-WORKDIR /flip/test
-COPY scripts/*.py .
-COPY patch ./patch
-RUN mvn compile
+WORKDIR /SMARTFL
+RUN git checkout 10a921455c1e8f0474f8672e9709ff6107b15fd6
+COPY smartfl/s.py s.py
+COPY smartfl/defects4j.py pylib/defects4j.py
+
+
