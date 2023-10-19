@@ -35,7 +35,9 @@ $ docker build -t smartfl -f Dockerfile-smartfl .
 ## Reproducing the main experiments of Flip (Table 5)
 
 ```sh
-$ docker run -it flip /bin/bash
+$ docker run -it --name flip-experiment flip /bin/bash
+
+# In the docker container,
 $ ./checkout.py <Chart|Closure|Lang|Math|Time>
 $ ./get_method.py <Chart|Closure|Lang|Math|Time>
 $ ./run_coverage.py <Chart|Closure|Lang|Math|Time>
@@ -60,10 +62,15 @@ Project     Case    Rank
 ...
 ```
 
-## Reproducing the main experiments of Flip (Table 5)
+## Reproducing the main experiments of Flip with SmartFL (Table 5)
 
 ```sh
-$ docker run -it smartfl /bin/bash
+$ docker run -it --name flip-smartfl-experiment smartfl /bin/bash
+
+# In your local bash,
+$ ./copy_result.py flip-experiment flip-smartfl-experiment <Chart|Closure|Lang|Math|Time>
+
+# In the docker container,
 $ python3 s.py testproj <Chart|Closure|Lang|Math|Time>
 $ python3 s.py fliptestproj <Chart|Closure|Lang|Math|Time>
 ```
