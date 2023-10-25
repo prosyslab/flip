@@ -161,19 +161,19 @@ It contains data with the following structure.
 |   └─ function                         <- Results for function-level FL
 |       ├─ ...
 |
-├─ oracle                               <- Results for approximated oracle with different thresholds (Table 5, 6)
-|   ├─ passing                          <- Results for approximated oracle with P_100 (Table 5)
+├─ oracle                               <- Results for approximated oracle with different thresholds (Table 6, 7)
+|   ├─ passing                          <- Results for approximated oracle with P_100 (Table 6)
 |   |
-|   └─ failing                          <- Results for approximated oracle with F_90 (Table 6)
+|   └─ failing                          <- Results for approximated oracle with F_90 (Table 7)
 |
-├─ aggregation                          <- Results for different aggregation schemes (Table 7) 
+├─ aggregation                          <- Results for different aggregation schemes (Table 8) 
 |   ├─ passing                          <- Results for Flip with P_max scheme
 |   |
 |   └─ failing                          <- Results for Flip with F_avg scheme
 |
-├─ passing                              <- Results for impact analysis of P_pass (Table 8)
+├─ passing                              <- Results for impact analysis of P_pass (Table 9)
 |
-└─ failing                              <- Results for impact analysis of P_fail (Table 8)
+└─ failing                              <- Results for impact analysis of P_fail (Table 9)
 ```
 
 

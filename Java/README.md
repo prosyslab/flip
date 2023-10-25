@@ -90,4 +90,11 @@ Note that -3 means failure.
 
 ## Experiment data
 
-TBD
+Our experimental data are given in `flip_result`.
+It contains data with the following structure.
+```
+├─ <project>                      
+|   ├─ <case>
+|   |   └─ result_ochiai.txt       <- Result file with Ochiai for each benchmark case (Table 5)
+
+```
