@@ -10,7 +10,7 @@ from benchmark import benchmark, patch_location
 
 PROJECT_HOME = Path(__file__).resolve().parent.parent
 YML_DIR = os.path.join(PROJECT_HOME, 'benchmark')
-COVERAGE_DIR = PROJECT_HOME / 'flip_output'
+COVERAGE_DIR = PROJECT_HOME / 'flex_output'
 
 nef_sum = 0
 nef_num = 0

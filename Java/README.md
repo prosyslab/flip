@@ -1,6 +1,6 @@
 ## System Requirements
 
-We assume that Flip is executed with the following environment settings.
+We assume that Flex is executed with the following environment settings.
 - Ubuntu 20.04
 - Docker
 
@@ -9,13 +9,13 @@ We assume that Flip is executed with the following environment settings.
 ```
 ├─ README.md                        <- The top-level README (this file)
 |
-├─ Dockerfile                       <- Dockerfile for Flip
+├─ Dockerfile                       <- Dockerfile for Flex
 |
 ├─ patch                            <- Patch files for the compilation
 |
-├─ flip                             <- Our implementation of Flip
+├─ flex                             <- Our implementation of Flex
 |
-├─ flip_result                      <- Our experimental data
+├─ flex_result                      <- Our experimental data
 |
 └─ scripts                          <- Scripts for reproducing our experiments 
 ```
@@ -24,7 +24,7 @@ We assume that Flip is executed with the following environment settings.
 
 Run the following command to build and run docker image:
 ```sh
-$ docker build -t flip .
+$ docker build -t flex .
 ```
 
 Run the following command to build and run docker image for SmartFL:
@@ -32,10 +32,10 @@ Run the following command to build and run docker image for SmartFL:
 $ docker build -t smartfl -f Dockerfile-smartfl .
 ```
 
-## Reproducing the main experiments of Flip (Table 5)
+## Reproducing the main experiments of Flex (Table 5)
 
 ```sh
-$ docker run -it --name flip-experiment flip /bin/bash
+$ docker run -it --name flex-experiment flex /bin/bash
 
 # In the docker container,
 $ ./checkout.py <Chart|Closure|Lang|Math|Time>
@@ -62,13 +62,13 @@ Project     Case    Rank
 ...
 ```
 
-## Reproducing the main experiments of Flip with SmartFL (Table 5)
+## Reproducing the main experiments of Flex with SmartFL (Table 5)
 
 ```sh
-$ docker run -it --name flip-smartfl-experiment smartfl /bin/bash
+$ docker run -it --name flex-smartfl-experiment smartfl /bin/bash
 
 # In your local bash,
-$ ./copy_result.py flip-experiment flip-smartfl-experiment <Chart|Closure|Lang|Math|Time>
+$ ./copy_result.py flex-experiment flex-smartfl-experiment <Chart|Closure|Lang|Math|Time>
 
 # In the docker container,
 $ python3 s.py testproj <Chart|Closure|Lang|Math|Time>

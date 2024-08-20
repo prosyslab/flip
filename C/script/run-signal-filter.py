@@ -11,7 +11,7 @@ import multiprocessing
 from benchmark import benchmark
 
 PROJECT_HOME = Path(__file__).resolve().parent.parent
-COVERAGE_DIR = PROJECT_HOME / 'flip_output'
+COVERAGE_DIR = PROJECT_HOME / 'flex_output'
 
 RUN_DOCKER_SCRIPT = PROJECT_HOME / 'script/run-docker.py'
 

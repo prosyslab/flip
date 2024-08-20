@@ -1,6 +1,6 @@
 ## System Requirements
 
-We assume that Flip is executed with the following environment settings.
+We assume that Flex is executed with the following environment settings.
 - Ubuntu 20.04
 - Opam 2.1.0 +
 - Docker
@@ -12,9 +12,9 @@ We assume that Flip is executed with the following environment settings.
 ```
 ├─ README.md                        <- The top-level README (this file)
 |
-├─ Makefile                         <- Makefile for compiling Flip
+├─ Makefile                         <- Makefile for compiling Flex
 |
-├─ build.sh                         <- Installation script for Flip
+├─ build.sh                         <- Installation script for Flex
 |
 ├─ benchmark                        <- Benchmark information
 |   ├─ <project>
@@ -22,20 +22,20 @@ We assume that Flip is executed with the following environment settings.
 |   └─ ...
 ├─ cil                              <- Cil framework for instrumentaion of C programs
 |
-├─ flip                             <- Our implementation of Flip
+├─ flex                             <- Our implementation of Flex
 |
-├─ flip_result                      <- Our experimental data
+├─ flex_result                      <- Our experimental data
 |
 └─ script                           <- Scripts for reproducing our experiments 
 ```
 
 ## Installation
 
-Run the following command to install Flip:
+Run the following command to install Flex:
 ```
 $ ./build.sh
 ```
-The above command will install all the dependencies and build Flip.
+The above command will install all the dependencies and build Flex.
 
 Note that It would take some time.
 
@@ -59,7 +59,7 @@ $ ./script/run-main-stmt.sh
 # Function-level FL results
 $ ./script/run-main-function.sh
 
-# If you want to reproduce results with given data (./flip_result)
+# If you want to reproduce results with given data (./flex_result)
 # Statement-level FL results
 $ ./script/process-result-main-stmt.py -p <project> -c <case>
 # Function-level FL results
@@ -90,7 +90,7 @@ $ ./script/run-oracle-pass-100.sh
 # Approximated oracle with F_90 (Table 6)
 $ ./script/run-oracle-fail-90.sh
 
-# If you want to reproduce results with given data (./flip_result)
+# If you want to reproduce results with given data (./flex_result)
 # Approximated oracle with P_100 (Table 5)
 $ ./script/process-result-oracle-pass-100.py -p <project> -c <case>
 # Approximated oracle with F_90 (Table 6)
@@ -107,15 +107,15 @@ The format of the result is the same as the main results.
 
 ```sh
 # If you want to reproduce whole experimental data,
-# Flip with P_max scheme
+# Flex with P_max scheme
 $ ./script/run-oracle-pass-max.sh
-# Flip with F_avg scheme
+# Flex with F_avg scheme
 $ ./script/run-oracle-fail-avg.sh
 
-# If you want to reproduce results with given data (./flip_result)
-# Flip with P_max scheme
+# If you want to reproduce results with given data (./flex_result)
+# Flex with P_max scheme
 $ ./script/process-result-aggregation-pass-max.py -p <project> -c <case>
-# Flip with F_avg scheme
+# Flex with F_avg scheme
 $ ./script/process-result-aggregation-fail-avg.py -p <project> -c <case>
 ```
 
@@ -128,15 +128,15 @@ The format of the result is the same as the main results.
 ## Reproducing the experiments for impact analysis of P_pass and P_fail (Table 8)
 ```sh
 # If you want to reproduce whole experimental data,
-# Flip only with P_pass
+# Flex only with P_pass
 $ ./script/run-oracle-pass-only.sh
-# Flip only with P_fail
+# Flex only with P_fail
 $ ./script/run-oracle-fail-only.sh
 
-# If you want to reproduce results with given data (./flip_result)
-# Flip only with P_pass
+# If you want to reproduce results with given data (./flex_result)
+# Flex only with P_pass
 $ ./script/process-result-pass-only.py -p <project> -c <case>
-# Flip only with P_fail
+# Flex only with P_fail
 $ ./script/process-result-fail-only.py -p <project> -c <case>
 ```
 
@@ -148,7 +148,7 @@ The format of the result is the same as the main results.
 
 ## Experiment data
 
-Our experimental data are given in `flip_result`.
+Our experimental data are given in `flex_result`.
 It contains data with the following structure.
 ```
 ├─ main_result                          <- Results for main experiments (Table 4)
@@ -167,9 +167,9 @@ It contains data with the following structure.
 |   └─ failing                          <- Results for approximated oracle with F_90 (Table 7)
 |
 ├─ aggregation                          <- Results for different aggregation schemes (Table 8) 
-|   ├─ passing                          <- Results for Flip with P_max scheme
+|   ├─ passing                          <- Results for Flex with P_max scheme
 |   |
-|   └─ failing                          <- Results for Flip with F_avg scheme
+|   └─ failing                          <- Results for Flex with F_avg scheme
 |
 ├─ passing                              <- Results for impact analysis of P_pass (Table 9)
 |

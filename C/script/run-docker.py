@@ -10,7 +10,7 @@ import yaml
 import json
 
 PROJECT_HOME = os.path.dirname(os.path.dirname(os.path.realpath(__file__)))
-LOCALIZER_HOME = os.path.join(PROJECT_HOME, "flip")
+LOCALIZER_HOME = os.path.join(PROJECT_HOME, "flex")
 LOCALIZER_BIN_DIR = os.path.join(LOCALIZER_HOME, "_build/default/src")
 MANYBUGS_HOME = os.path.join(PROJECT_HOME, "benchmark")
 

@@ -56,9 +56,9 @@ def main():
 
         answers = patch_location[project][case]
 
-        if os.path.exists(f"/flip/test/coverage/{project}/{case}/result_ochiai_final24.txt"):
+        if os.path.exists(f"/flip/test/coverage/{project}/{case}/result_ochiai_final.txt"):
             coverage = read_coverage(
-                f"/flip/test/coverage/{project}/{case}/result_ochiai_final24.txt")
+                f"/flip/test/coverage/{project}/{case}/result_ochiai_final.txt")
 
             fl_result = []
 

@@ -44,7 +44,7 @@ RUN ln -snf /usr/share/zoneinfo/$TZ /etc/localtime && echo $TZ > /etc/timezone
 # ----------- Step 1. Clone defects4j from github --------------
 WORKDIR /
 RUN git clone https://github.com/rjust/defects4j.git defects4j
-COPY flip /flip
+COPY flex /flip
 
 # ----------- Step 2. Initialize Defects4J ---------------------
 WORKDIR /defects4j
