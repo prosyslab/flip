@@ -1,6 +1,6 @@
-# Flip
+# Flex
 
-Flip is a framework for fault localization with external oracle using counterfactual execution.
+Flex is a framework for fault localization with external oracle using counterfactual execution.
 
 ## Implementation
 
