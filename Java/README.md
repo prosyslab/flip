@@ -90,7 +90,7 @@ Note that -3 means failure.
 
 ## Experiment data
 
-Our experimental data are given in `flip_result`.
+Our experimental data are given in `flex_result`.
 It contains data with the following structure.
 ```
 ├─ <project>                      
